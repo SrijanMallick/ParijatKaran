@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f7f7f7"/>
+  <rect x="40" y="40" width="720" height="420" fill="none" stroke="#111" stroke-width="1"/>
+  <text x="400" y="230" text-anchor="middle" font-family="Georgia, serif" font-size="28" fill="#111">Judicial Review</text>
+  <text x="400" y="270" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#888" letter-spacing="3">CONSTITUTIONAL LAW</text>
+  <line x1="340" y1="300" x2="460" y2="300" stroke="#111" stroke-width="1"/>
+</svg>

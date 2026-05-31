@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f7f7f7"/>
+  <rect x="40" y="40" width="720" height="420" fill="none" stroke="#111" stroke-width="1"/>
+  <text x="400" y="220" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#111">Secular Marriage</text>
+  <text x="400" y="255" text-anchor="middle" font-family="Georgia, serif" font-size="26" fill="#111">in India</text>
+  <text x="400" y="295" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" fill="#888" letter-spacing="3">SMA 1954</text>
+  <line x1="360" y1="320" x2="440" y2="320" stroke="#111" stroke-width="1"/>
+</svg>
