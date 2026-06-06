@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://parijatkaran.com/sitemap.xml
+Sitemap: https://www.parijatkaran.in/sitemap.xml
