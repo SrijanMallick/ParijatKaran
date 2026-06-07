@@ -5,6 +5,7 @@ Official website for **Parijat Karan**, Advocate practising at Patna High Court 
 - **Stack:** HTML, CSS, JavaScript (static site)
 - **Live domain:** `https://www.parijatkaran.in`
 - **Repo:** Push to client's GitHub account
+- **Recommended hosting:** [Vercel](#hosting-on-vercel-recommended) + GoDaddy domain
 
 ---
 
@@ -17,12 +18,13 @@ Official website for **Parijat Karan**, Advocate practising at Patna High Court 
 5. [Remove a blog](#remove-a-blog)
 6. [Meta tags & SEO guide](#meta-tags--seo-guide)
 7. [Update profile / contact info](#update-profile--contact-info)
-8. [Hosting on GitHub Pages](#hosting-on-github-pages)
-9. [Hosting on Vercel (alternative)](#hosting-on-vercel-alternative)
-10. [Domain setup — GoDaddy + parijatkaran.in](#domain-setup--godaddy--parijatkaranin)
-11. [Handover to client GitHub](#handover-to-client-github)
-12. [Optional SEO (minimal)](#optional-seo-minimal)
-13. [Troubleshooting](#troubleshooting)
+8. [Hosting on Vercel (recommended)](#hosting-on-vercel-recommended)
+9. [Buy domain on GoDaddy](#buy-domain-on-godaddy)
+10. [Connect domain to Vercel — GoDaddy DNS](#connect-domain-to-vercel--godaddy-dns)
+11. [Hosting on GitHub Pages (alternative)](#hosting-on-github-pages-alternative)
+12. [Handover to client GitHub](#handover-to-client-github)
+13. [Optional SEO (minimal)](#optional-seo-minimal)
+14. [Troubleshooting](#troubleshooting)
 
 ---
 
@@ -282,7 +284,259 @@ If domain ever changes, search and replace `www.parijatkaran.in` across all `.ht
 
 ---
 
-## Hosting on GitHub Pages
+## Hosting on Vercel (recommended)
+
+**Use Vercel + GoDaddy** for the easiest custom domain setup. The site code stays on GitHub; Vercel deploys it automatically on every push.
+
+> Use **either** Vercel **or** GitHub Pages for the live domain — not both at once.
+
+---
+
+### Phase A — Push code to GitHub first
+
+Skip if the repo already exists on the client's GitHub.
+
+1. Client creates a GitHub account at [github.com](https://github.com).
+2. Client creates a new **public** repository named `ParijatKaran`.
+3. On your computer, open PowerShell in the project folder:
+
+```powershell
+cd "C:\Users\offic\OneDrive\Documents\Desktop\Parijat Karan"
+git remote set-url origin https://github.com/CLIENT_USERNAME/ParijatKaran.git
+git push -u origin main
+```
+
+4. On GitHub, confirm the repo contains folders: `css/`, `js/`, `assets/images/`, and `index.html`.
+
+---
+
+### Phase B — Create Vercel account and import project
+
+1. Go to [vercel.com](https://vercel.com).
+2. Click **Sign Up** → choose **Continue with GitHub**.
+3. Authorize Vercel to access GitHub when prompted.
+4. On the Vercel dashboard, click **Add New… → Project**.
+5. Under **Import Git Repository**, find **`ParijatKaran`**.
+   - If not listed: click **Adjust GitHub App Permissions** and grant access to the repo.
+6. Click **Import** next to the repo.
+
+---
+
+### Phase C — Configure and deploy
+
+On the **Configure Project** screen, set these exactly:
+
+| Setting | Value |
+|---------|--------|
+| **Project Name** | `parijat-karan` (or any name — this is internal) |
+| **Framework Preset** | **Other** |
+| **Root Directory** | `./` (leave as root) |
+| **Build Command** | Leave **empty** |
+| **Output Directory** | Leave **empty** |
+| **Install Command** | Leave **empty** |
+
+7. Click **Deploy**.
+8. Wait 1–2 minutes until the build shows **Ready**.
+9. Vercel gives a temporary URL like `https://parijat-karan.vercel.app` — open it and confirm:
+   - CSS/styling loads
+   - Navigation works
+   - Profile photo shows
+   - Blog pages open
+
+---
+
+### Phase D — Remove GitHub Pages conflict (if previously used)
+
+If the site was on GitHub Pages before:
+
+1. GitHub repo → **Settings → Pages**.
+2. Set source to **None** / disable Pages.
+3. Delete the `CNAME` file from the repo (only needed for GitHub Pages):
+
+```powershell
+git rm CNAME
+git commit -m "Remove CNAME — using Vercel for hosting"
+git push
+```
+
+Vercel manages the domain in its dashboard — no `CNAME` file in code needed.
+
+---
+
+### Phase E — Add custom domain in Vercel
+
+**Do this after buying `parijatkaran.in` on GoDaddy** (Phase F below), or add the domain now and configure DNS once the domain is purchased.
+
+1. Vercel project → **Settings** (top tab).
+2. Click **Domains** in the left sidebar.
+3. Type `www.parijatkaran.in` → click **Add**.
+4. Vercel shows **Invalid Configuration** until DNS is set — that is normal.
+5. Also add `parijatkaran.in` (without www) → click **Add**.
+6. Click each domain to see the **DNS records** Vercel requires. Keep this tab open for Phase G.
+
+**Set primary domain (recommended):**
+
+7. Next to `www.parijatkaran.in`, set it as the **primary** domain if Vercel offers that option.
+8. Vercel will redirect `parijatkaran.in` → `www.parijatkaran.in` automatically once DNS is verified.
+
+---
+
+### Phase F — HTTPS
+
+1. After DNS verifies (Phase G), Vercel issues an SSL certificate automatically.
+2. In **Settings → Domains**, both domains should show **Valid Configuration** with a green check.
+3. No manual HTTPS toggle needed — Vercel handles it.
+
+---
+
+### Ongoing — how updates go live
+
+Every time you push to GitHub:
+
+```powershell
+git add .
+git commit -m "Describe change"
+git push
+```
+
+Vercel redeploys in **1–2 minutes** automatically. No manual upload needed.
+
+---
+
+### Vercel setup checklist
+
+```
+□ Code pushed to client's GitHub (full folder structure)
+□ Vercel account created (Sign in with GitHub)
+□ ParijatKaran repo imported
+□ Framework: Other, no build command
+□ Deploy successful — test *.vercel.app URL
+□ GitHub Pages disabled (if used before)
+□ CNAME file removed from repo
+□ www.parijatkaran.in added in Vercel Domains
+□ parijatkaran.in added in Vercel Domains
+□ GoDaddy DNS records added (Phase G)
+□ Both domains show Valid Configuration in Vercel
+□ https://www.parijatkaran.in loads with styling
+```
+
+---
+
+## Buy domain on GoDaddy
+
+### Step 1 — Purchase
+
+1. Go to [godaddy.com](https://www.godaddy.com).
+2. Search for **`parijatkaran.in`**.
+3. Add to cart and complete checkout.
+4. Sign in to your GoDaddy account after purchase.
+
+### Step 2 — Open DNS settings
+
+1. Go to **My Products** (top-right account menu).
+2. Find **`parijatkaran.in`** → click **DNS** (or **Manage DNS**).
+3. You land on the **DNS Management** page with a list of records.
+
+### Step 3 — Clean up default records (important)
+
+GoDaddy often adds parking records that conflict with Vercel. **Delete or edit** these if present:
+
+- CNAME record where Name = `www` pointing to GoDaddy parking
+- A record where Name = `@` pointing to GoDaddy parking IP
+
+Click the **pencil icon** or **trash icon** next to each conflicting record.
+
+> Do not delete NS (nameserver) records unless GoDaddy support tells you to.
+
+---
+
+## Connect domain to Vercel — GoDaddy DNS
+
+Follow Vercel's dashboard for exact values — they can change. The steps below match the usual setup.
+
+### Step 1 — Get records from Vercel
+
+1. Vercel → your project → **Settings → Domains**.
+2. Click **`www.parijatkaran.in`** — note the CNAME target (usually `cname.vercel-dns.com`).
+3. Click **`parijatkaran.in`** — note the A record IP address(es) Vercel shows (commonly `76.76.21.21`).
+
+### Step 2 — Add CNAME for www (GoDaddy)
+
+1. GoDaddy DNS page → click **Add** (or **Add Record**).
+2. Fill in:
+
+| Field | Value |
+|-------|--------|
+| **Type** | CNAME |
+| **Name** | `www` |
+| **Value** | `cname.vercel-dns.com` *(use exact value from Vercel)* |
+| **TTL** | 1 Hour (default is fine) |
+
+3. Click **Save**.
+
+### Step 3 — Add A record for root domain (GoDaddy)
+
+1. Click **Add** again.
+2. Fill in:
+
+| Field | Value |
+|-------|--------|
+| **Type** | A |
+| **Name** | `@` |
+| **Value** | `76.76.21.21` *(use exact IP from Vercel dashboard)* |
+| **TTL** | 1 Hour |
+
+3. Click **Save**.
+
+If Vercel shows **multiple A records**, add one A record in GoDaddy for each IP.
+
+### Step 4 — Wait for DNS propagation
+
+- Usually **15 minutes to 48 hours** (often under 1 hour).
+- Vercel → **Settings → Domains** — refresh until both domains show **Valid Configuration**.
+
+### Step 5 — Test the live site
+
+Open these URLs in a browser:
+
+| URL | Expected result |
+|-----|-----------------|
+| `https://www.parijatkaran.in` | Full styled site loads |
+| `https://parijatkaran.in` | Redirects to `www` version |
+| `https://www.parijatkaran.in/blogs.html` | Blogs page loads |
+| `https://www.parijatkaran.in/contact.html` | Contact page loads |
+
+Hard refresh if needed: **Ctrl + F5** (Windows) or **Cmd + Shift + R** (Mac).
+
+---
+
+### GoDaddy DNS quick reference
+
+| Type | Name | Value | Purpose |
+|------|------|--------|---------|
+| CNAME | `www` | `cname.vercel-dns.com` | www subdomain → Vercel |
+| A | `@` | `76.76.21.21` | Root domain → Vercel |
+
+Always confirm values in **your Vercel Domains dashboard** before saving in GoDaddy.
+
+---
+
+### GoDaddy + Vercel troubleshooting
+
+| Problem | Fix |
+|---------|-----|
+| Vercel shows "Invalid Configuration" | DNS not propagated yet — wait up to 48 hrs |
+| "www works but root domain doesn't" | Add A record for `@` with Vercel's IP |
+| "Root works but www doesn't" | Add CNAME `www` → `cname.vercel-dns.com` |
+| GoDaddy says record conflict | Delete old parking CNAME/A records first |
+| Site shows old version | Hard refresh browser; check Vercel Deployments tab |
+| CSS broken on live site | Confirm `css/` folder exists in GitHub repo |
+
+---
+
+## Hosting on GitHub Pages (alternative)
+
+Use this only if you prefer not to use Vercel. **Do not run both** on the same domain.
 
 ### One-time setup
 
@@ -302,87 +556,17 @@ If domain ever changes, search and replace `www.parijatkaran.in` across all `.ht
 3. Wait for DNS check (up to 48 hours).
 4. Enable **Enforce HTTPS**.
 
-### Ongoing
-
-Every `git push` to `main` automatically redeploys the site.
-
----
-
-## Hosting on Vercel (alternative)
-
-Use **either** GitHub Pages **or** Vercel — not both for the same domain at once.
-
-### One-time setup
-
-1. Go to [vercel.com](https://vercel.com) and sign in with GitHub.
-2. **Add New Project** → import the `ParijatKaran` repo.
-3. **Framework Preset:** Other (static site).
-4. **Root Directory:** `./` (project root).
-5. Click **Deploy**.
-
-Vercel auto-detects static HTML. No build command needed.
-
-### Custom domain on Vercel
-
-1. Vercel project → **Settings → Domains**.
-2. Add `www.parijatkaran.in` and `parijatkaran.in`.
-3. Vercel shows DNS records — add them in GoDaddy (see below).
-4. Vercel handles HTTPS automatically.
-
-### Ongoing
-
-Every `git push` to `main` triggers automatic redeploy on Vercel.
-
-### If using Vercel instead of GitHub Pages
-
-- You can **delete the `CNAME` file** (it's only for GitHub Pages).
-- Disable GitHub Pages on the repo to avoid conflicts.
-- Point GoDaddy DNS to Vercel instead of GitHub.
-
----
-
-## Domain setup — GoDaddy + parijatkaran.in
-
-### Step 1 — Buy domain
-
-1. Go to [godaddy.com](https://www.godaddy.com).
-2. Buy **`parijatkaran.in`**.
-3. Open **My Products → parijatkaran.in → DNS**.
-
----
-
-### Step 2 — DNS for GitHub Pages
+### GoDaddy DNS for GitHub Pages
 
 | Type | Name | Value |
 |------|------|--------|
 | **CNAME** | `www` | `CLIENT_USERNAME.github.io` |
 
-**Domain forwarding (recommended):**
+Forward `parijatkaran.in` → `https://www.parijatkaran.in` (301) in GoDaddy forwarding settings.
 
-- Forward `parijatkaran.in` → `https://www.parijatkaran.in`
-- Type: **Permanent (301)**
-- Forward with HTTPS: **On**
+### Ongoing
 
----
-
-### Step 3 — DNS for Vercel (if using Vercel instead)
-
-Vercel → Project → Settings → Domains → copy the records shown. Typically:
-
-| Type | Name | Value |
-|------|------|--------|
-| **CNAME** | `www` | `cname.vercel-dns.com` |
-| **A** | `@` | Vercel IP addresses (shown in dashboard) |
-
-Use exactly what Vercel displays for your project.
-
----
-
-### Step 4 — Verify
-
-- Open `https://www.parijatkaran.in`
-- Check: styling works, images load, all nav links work
-- Check: `https://parijatkaran.in` redirects to `www`
+Every `git push` to `main` automatically redeploys the site.
 
 ---
 
@@ -392,14 +576,15 @@ When moving from a developer account to the client's GitHub:
 
 ```
 □ Push full project to client's GitHub repo
-□ Enable GitHub Pages (or Vercel) on client's account
-□ Set custom domain www.parijatkaran.in in hosting settings
-□ Update GoDaddy CNAME www → CLIENT_USERNAME.github.io (or Vercel DNS)
-□ Forward parijatkaran.in → www.parijatkaran.in
-□ Enable HTTPS
-□ Disable Pages on old developer repo (avoid duplicate sites)
+□ Import repo on Vercel (recommended) OR enable GitHub Pages
+□ Add www.parijatkaran.in + parijatkaran.in in Vercel Domains
+□ Buy parijatkaran.in on GoDaddy
+□ Add GoDaddy DNS records (CNAME www + A @) per Vercel dashboard
+□ Remove CNAME file from repo if using Vercel
+□ Disable GitHub Pages on old developer repo
+□ Confirm Valid Configuration + HTTPS in Vercel
 □ Test live site end-to-end
-□ Give client GitHub login or add as collaborator
+□ Give client GitHub + Vercel login (or add as collaborator)
 ```
 
 **No code changes needed** when switching GitHub accounts — only DNS and hosting settings change.
@@ -445,9 +630,9 @@ No monthly SEO maintenance required beyond publishing blogs and sharing the site
 
 ### Domain not working
 
-**Cause:** DNS not propagated or wrong CNAME target.
+**Cause:** DNS not propagated, wrong records, or old GoDaddy parking records.
 
-**Fix:** Wait up to 48 hours. Confirm GoDaddy CNAME points to correct GitHub username or Vercel target.
+**Fix:** Wait up to 48 hours. Match GoDaddy records exactly to Vercel **Settings → Domains**. Delete conflicting parking CNAME/A records in GoDaddy.
 
 ### Contact form doesn't send email
 
@@ -464,7 +649,7 @@ The form only shows a "Thank you" message in the browser. To send real emails, c
 | Change phone | All `.html` files (search `7250472734`) |
 | Change bio | `index.html`, `contact.html` |
 | Change design | `css/style.css` only |
-| Go live | Push to GitHub or Vercel + GoDaddy DNS |
+| Go live | Push to GitHub → Vercel auto-deploys → GoDaddy DNS |
 
 ---
 
